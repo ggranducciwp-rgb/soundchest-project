@@ -141,7 +141,7 @@ strong {
 }
 
 .header--glass.scrolled .nav-toggle span {
-  background: var(--ink);
+  /* background: var(--ink); */
 }
 
 .nav {
