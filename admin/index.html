@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin — Soundchest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/admin.css" />
+</head>
+<body class="admin-body">
+  <div id="loginScreen" class="admin-login">
+    <div class="admin-login-card">
+      <h1>Soundchest Admin</h1>
+      <p>Area riservata per gestire il team sul sito.</p>
+      <form id="loginForm" action="#" method="post" novalidate>
+        <label for="adminPass">Password</label>
+        <input type="password" id="adminPass" name="password" autocomplete="current-password" placeholder="soundchest" />
+        <p class="admin-hint">Password: <code>soundchest</code></p>
+        <button type="button" id="loginBtn" class="btn btn-primary btn-block">Entra</button>
+        <button type="submit" class="visually-hidden" tabindex="-1" aria-hidden="true">Entra</button>
+      </form>
+      <p id="loginError" class="admin-error" style="display:none">Password non corretta.</p>
+      <a href="../index.html" class="admin-back">← Torna al sito</a>
+    </div>
+  </div>
+
+  <div id="adminApp" class="admin-app" style="display:none">
+    <header class="admin-header">
+      <div>
+        <a href="../index.html" class="admin-brand">Soundchest Admin</a>
+      </div>
+      <div class="admin-header-actions">
+        <a href="../index.html" class="btn btn-primary" target="_blank" rel="noopener">Anteprima sito</a>
+        <button type="button" class="btn" id="logoutBtn">Esci</button>
+      </div>
+    </header>
+
+    <p id="storageWarning" class="admin-storage-warn" style="display:none">
+      Attenzione: il browser blocca o limita la memoria locale (spesso con file://). Apri il sito con Live Server (http://localhost) per salvare team e foto.
+    </p>
+    <main class="admin-main container">
+      <section class="admin-panel">
+        <h2>Testo sezione team</h2>
+        <p class="admin-desc">Introduzione mostrata sopra le card nella sezione «Il gruppo».</p>
+        <form id="leadForm">
+          <textarea id="sectionLead" rows="3" required></textarea>
+          <button type="submit" class="btn btn-accent">Salva testo</button>
+        </form>
+      </section>
+
+      <section class="admin-panel">
+        <div class="admin-panel-head">
+          <div>
+            <h2>Membri del team</h2>
+            <p class="admin-desc">Nome, ruolo, descrizione e foto (opzionale). Visibili sulla landing.</p>
+          </div>
+          <button type="button" class="btn btn-primary" id="addMemberBtn">+ Aggiungi persona</button>
+        </div>
+
+        <ul id="adminMembersList" class="admin-members-list"></ul>
+      </section>
+
+      <section class="admin-panel admin-panel--muted">
+        <h2>Sicurezza</h2>
+        <form id="passForm" class="admin-pass-form">
+          <label for="newPass">Nuova password admin</label>
+          <input type="password" id="newPass" minlength="4" required placeholder="Minimo 4 caratteri" />
+          <button type="submit" class="btn btn-primary">Aggiorna password</button>
+          <button type="button" class="btn admin-btn-reset" id="resetPassBtn">Ripristina password default</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modale modifica / nuovo membro -->
+  <dialog id="memberModal" class="admin-modal">
+    <form id="memberForm">
+      <header class="admin-modal-header">
+        <h3 id="modalTitle">Membro</h3>
+        <button type="button" class="chat-close" id="modalClose" aria-label="Chiudi">×</button>
+      </header>
+      <div class="admin-modal-body">
+        <input type="hidden" id="memberId" />
+        <label>Nome o ruolo in evidenza</label>
+        <input type="text" id="memberName" required placeholder="Es. Marco B." />
+        <label>Ruolo / strumento (opzionale)</label>
+        <input type="text" id="memberRole" placeholder="Es. Voce, chitarra" />
+        <label>Descrizione</label>
+        <textarea id="memberDesc" rows="3" required placeholder="Breve testo sul membro"></textarea>
+        <label>Foto</label>
+        <div class="admin-photo-row">
+          <div class="admin-photo-preview" id="photoPreview">
+            <span>Anteprima</span>
+          </div>
+          <div>
+            <input type="file" id="memberPhoto" accept="image/jpeg,image/png,image/webp" />
+            <button type="button" class="btn admin-btn-sm" id="clearPhotoBtn">Rimuovi foto</button>
+            <p class="admin-hint">JPG/PNG/WebP, max ~1 MB consigliato (salvata nel browser).</p>
+          </div>
+        </div>
+      </div>
+      <footer class="admin-modal-footer">
+        <button type="button" class="btn" id="cancelMemberBtn">Annulla</button>
+        <button type="submit" class="btn btn-primary">Salva membro</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div id="adminToast" class="admin-toast" hidden></div>
+
+  <script src="../js/storage.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>
