@@ -431,3 +431,19 @@
     boot();
   }
 })();
+
+
+// sincronizzazione con tutti i devices
+
+// Esporta dati (per condividerli)
+function exportTeamData() {
+  const data = localStorage.getItem(SoundchestStore.KEYS.team);
+  console.log("Dati da copiare:", data);
+  // Mostra un QR code o link
+}
+
+// Importa dati (da URL o file)
+function importTeamData(jsonString) {
+  localStorage.setItem(SoundchestStore.KEYS.team, jsonString);
+  location.reload();
+}
